@@ -13,16 +13,10 @@ script({
 
 const { vars, output, dbg } = env
 const { question } = vars
-const { index } = await init()
-const docs = await index.search(question, { topK: 20 })
-let tokens = 0
-//output.appendContent("``````")
+const { index, searchOptions } = await init()
+const docs = await index.search(question, searchOptions)
+docs.sort((l, r) => l.filename.localeCompare(r.filename))
 for (const doc of docs) {
     dbg(`chunk ${doc.content.length}c, ${doc.score}`)
-    output.itemValue("" + tokens++, doc.score)
-//    output.appendContent(doc.content + "\n\n")
-    //   tokens = tokens + parsers.tokens(doc.content)
-    //  if (tokens > 20000)
-    //     break
 }
-//output.appendContent("``````")
+output.appendContent(docs.map(({ content }) => content).join("\n\n"))

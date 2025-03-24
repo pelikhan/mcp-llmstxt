@@ -3,7 +3,7 @@ import { init } from "./src/llmstxt.mts"
 script({
     accept: "none"
 })
-const { dbg, output } = env
+const { output } = env
 const { docs, index } = await init()
 output.heading(2, 'indexing')
 for (const [id, { url }] of Object.entries(docs)) {
