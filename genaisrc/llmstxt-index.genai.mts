@@ -4,9 +4,9 @@ script({
     accept: "none"
 })
 const { dbg, output } = env
-const { urls, index } = await init()
+const { docs, index } = await init()
 output.heading(2, 'indexing')
-for (const [id, url] of Object.entries(urls)) {
+for (const [id, { url }] of Object.entries(docs)) {
     output.heading(3, id)
     const { ok, text } = await host.fetchText(url + "llms-full.txt")
     if (ok && text) {

@@ -1,5 +1,7 @@
 {
-  "urls": {
-    "genaiscrit": "https://microsoft.github.io/genaiscript/"
+  "docs": {
+    "genaiscrit": {
+      "url": "https://microsoft.github.io/genaiscript/"
+    }
   }
 }

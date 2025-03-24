@@ -3,7 +3,7 @@ export async function init() {
     const defaultCacheName = "llmstxt"
 
     const config: {
-        urls: Record<string, string>
+        docs: Record<string, { url: string }>
         indexName?: string
         indexOptions?: VectorIndexOptions
     } = await workspace.readJSON(configFilename)
@@ -11,8 +11,8 @@ export async function init() {
         await workspace.writeText(configFilename, JSON.stringify({ urls: {} }, null, 2))
         cancel(`please configure ${configFilename} with urls`)
     }
-    const { urls, indexName = "llmstxt", indexOptions = { cacheName: defaultCacheName } } = config
+    const { docs, indexName = "llmstxt", indexOptions = { cacheName: defaultCacheName, pageSeparator: "=!=!=!=!=!=", chunkSize: 500, chunkOverlap: 100 } } = config
     const index = await retrieval.index(indexName, indexOptions)
 
-    return { urls, index }
+    return { docs, index }
 }
